@@ -127,11 +127,16 @@ vendas_iniciais = [
     ('2023-12-20', 'Produto N', 'Livros', 250.00)
 ]
 
-lista_de_objetos = [Vendas(*item) for item in vendas_iniciais]
+def popular_dados_iniciais():
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM vendas1")
 
+    # Só insere se a tabela estiver vazia, evitando duplicar os dados
+    if cursor.fetchone()[0] > 0:
+        print("Banco já possui dados. Carga inicial ignorada.")
+        return
 
-for venda in lista_de_objetos:
-    atualVenda = venda
-    registrar_venda(atualVenda)
-    print(f"{atualVenda.produto} cadastrada com sucesso!")
+    for item in vendas_iniciais:
+        venda = registrar_venda(Vendas(*item))
+        print(f"{venda.produto} cadastrada com sucesso!")
     

@@ -1,12 +1,8 @@
 from data.database import criar_tabela
 from vendas import (
-    Vendas,
-    registrar_venda,
-    buscar_venda,
-    listar_vendas,
-    atualizar_venda,
-    #deletar_venda
+    popular_dados_iniciais
 )
+
 import middleware as fun
 
 criar_tabela()
@@ -41,5 +37,6 @@ def menu ():
                 break
             else:
                 print("\nOpção inválida! Escolha um número de 1 a 10.")
-
+                
+popular_dados_iniciais()
 menu()
